@@ -13,16 +13,12 @@ class ResultList extends PureComponent {
     results: P.arrayOf(P.shape(ResultShape)),
   };
 
-  renderResultItems() {
+  render() {
     const { results } = this.props;
 
-    return results.map(result => <Result key={result.id} {...result}/>);
-  }
-
-  render() {
     return (
       <ToggleContainer label="Results" showOnMount>
-        {this.renderResultItems()}
+        {results.map(result => <Result key={result.id} {...result}/>)}
       </ToggleContainer>
     );
   }

@@ -13,12 +13,6 @@ class Result extends Component {
     ...ResultShape,
   };
 
-  get price() {
-    const { price, price_drops } = this.props;
-
-    return +(price_drops.length ? price_drops[0] : price);
-  }
-
   render() {
     const {
       // buyer_id,
@@ -26,6 +20,7 @@ class Result extends Component {
       designer,
       followerno,
       id,
+      price,
       size,
       sold_at,
       sold_price,
@@ -65,7 +60,7 @@ class Result extends Component {
           />
           <Info
             label="List Price"
-            body={dollarify(this.price)}
+            body={dollarify(price)}
           />
           <Info
             label="Sold Price"
