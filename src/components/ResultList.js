@@ -21,11 +21,9 @@ class ResultList extends PureComponent {
 
   render() {
     return (
-      <div className="ResultList">
-        <ToggleContainer label="Results" showOnMount>
-          {this.renderResultItems()}
-        </ToggleContainer>
-      </div>
+      <ToggleContainer label="Results" showOnMount>
+        {this.renderResultItems()}
+      </ToggleContainer>
     );
   }
 }
