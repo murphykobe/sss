@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import P from 'prop-types';
 import { omitBy } from 'lodash/fp';
+import Select from './Select';
 
 import * as SearchActions from '../actions/search';
 import Info from './Info';
+import options, { filterOptions } from '../secrets/designers';
 
 import './Search.css';
 
@@ -51,7 +53,7 @@ class Search extends Component {
       sold: false,
       'user.id': '',
       buyer_id: '',
-      'designers.id': '',
+      'designers.id': undefined,
     }
   }
 
@@ -107,10 +109,11 @@ class Search extends Component {
           />
         </Control>
         <Control label="Designer ID">
-          <input
-            type="number"
+          <Select
+            options={options}
+            filterOptions={filterOptions}
             value={this.state['designers.id']}
-            onChange={e => this.setState({ 'designers.id': e.target.value })}
+            onChange={value => this.setState({ 'designers.id': value ? value.value : undefined })}
           />
         </Control>
         <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
