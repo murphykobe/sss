@@ -1,0 +1,9 @@
+.Results {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.Results-section {
+	margin-bottom: 10px;
+}
