@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Search from './components/Search';
 import Results from './components/Results';
 
+import { parseData } from './utils';
+
 import './App.css';
 
 class App extends Component {
@@ -24,7 +26,7 @@ class App extends Component {
   }
 
   handleSearchEnd({ results, sold }) {
-    this.setState({ loading: false, results, soldSearch: sold });
+    this.setState({ loading: false, results: parseData(results), soldSearch: sold });
   }
 
   render() {

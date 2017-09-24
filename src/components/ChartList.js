@@ -14,7 +14,7 @@ import { Row, ToggleContainer } from './layout';
 import { Control, Select } from './form';
 
 import ResultShape from '../propTypes/result';
-import { dateObjectify, datify, dollarify, percentify } from '../utils';
+import { datify, dollarify, percentify } from '../utils';
 import designers, { filterOptions } from '../secrets/designers';
 
 import './ChartList.css';
@@ -78,26 +78,6 @@ const accessors = {
 
 const accessorOptions = map(accessors, (v, k) => ({ label: v.label, value: k }));
 
-const DAY_LENGTH = 1000 * 60 * 60 * 24;
-
-const addComputedProperties = d => {
-  const created_at = dateObjectify(d.created_at);
-  const sold_at = dateObjectify(d.sold_at);
-  const price = +(d.price_drops[0] || d.price);
-  const amount_dropped = price - d.sold_price;
-
-  return {
-    ...d,
-    created_at,
-    sold_at,
-    price,
-    price_drops: d.price_drops.length ? d.price_drops.length - 1 : 0,
-    amount_dropped,
-    percent_dropped: amount_dropped / price,
-    days_to_sell: Math.round((sold_at - created_at) / DAY_LENGTH),
-  }
-};
-
 class ChartList extends PureComponent {
   static propTypes = {
     results: P.arrayOf(P.shape(ResultShape)),
@@ -134,7 +114,6 @@ class ChartList extends PureComponent {
       : results
 
     return filteredResults
-      .map(addComputedProperties)
       .filter(datum => datum[y] != null)
       .sort((a, b) => a[x] - b[x])
   }
