@@ -1,6 +1,8 @@
 import React from 'react';
 import P from 'prop-types';
 
+import { Hidable } from '../decorator';
+
 import './Control.css';
 
 const Control = ({ children, label, id }) => (
@@ -16,4 +18,4 @@ Control.propTypes = {
   id: P.string,
 };
 
-export default Control;
+export default Hidable(Control);

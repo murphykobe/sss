@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import P from 'prop-types';
 
+import { Hidable } from '../decorator';
+
 import './ToggleContainer.css';
 
 class ToggleContainer extends PureComponent {
@@ -32,4 +34,4 @@ class ToggleContainer extends PureComponent {
   }
 }
 
-export default ToggleContainer;
+export default Hidable(ToggleContainer);
