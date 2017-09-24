@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Info from './Info';
-import Row from './Row';
+import { Info, Row } from './layout';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, datify } from '../utils';

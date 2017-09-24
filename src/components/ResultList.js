@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import P from 'prop-types';
 
 import Result from './Result';
+import { ToggleContainer } from './layout';
+
 import ResultShape from '../propTypes/result';
-import ToggleContainer from './ToggleContainer';
 
 import './ResultList.css';
 

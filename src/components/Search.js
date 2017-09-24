@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import P from 'prop-types';
 import { omitBy } from 'lodash/fp';
-import Select from './Select';
+
+import { Control, Select } from './form';
+import { ToggleContainer } from './layout';
 
 import * as SearchActions from '../actions/search';
-import ToggleContainer from './ToggleContainer';
 import options, { filterOptions } from '../secrets/designers';
 
 import './Search.css';
@@ -28,19 +29,6 @@ const help = (
     </div>
   </div>
 );
-
-const Control = ({ children, label, id }) => (
-  <div className="Search-control">
-    <label htmlFor={id}>{label}</label>
-    {children}
-  </div>
-);
-
-Control.propTypes = {
-  children: P.node,
-  label: P.string,
-  id: P.string,
-};
 
 class Search extends Component {
   static propTypes = {

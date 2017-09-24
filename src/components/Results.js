@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import P from 'prop-types';
 import { map, sum, mean } from 'lodash/fp';
 
-import Info from './Info';
-import Placeholder from './Placeholder';
+import { Info, Placeholder, Row, ToggleContainer } from './layout';
+
 import ResultList from './ResultList';
-import Row from './Row';
-import ToggleContainer from './ToggleContainer';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, percentify } from '../utils';
