@@ -24,7 +24,7 @@ const accessors = {
     scale: 'time',
     tickFormat: datify,
     label: 'Created At',
-    parse: ({ created_at }) => dateObjectify(created_at),
+    parse: 'created_at',
   },
   followerno: {
     scale: 'linear',
@@ -48,7 +48,7 @@ const accessors = {
     scale: 'time',
     tickFormat: datify,
     label: 'Sold At',
-    parse: ({ sold_at }) => dateObjectify(sold_at),
+    parse: 'sold_at',
   },
   sold_price: {
     scale: 'linear',
@@ -68,20 +68,33 @@ const accessors = {
     label: 'Percent Dropped',
     parse: 'percent_dropped',
   },
+  days_to_sell: {
+    scale: 'linear',
+    tickFormat: x => x,
+    label: 'Days to Sell',
+    parse: 'days_to_sell',
+  },
 }
 
 const accessorOptions = map(accessors, (v, k) => ({ label: v.label, value: k }));
 
+const DAY_LENGTH = 1000 * 60 * 60 * 24;
+
 const addComputedProperties = d => {
+  const created_at = dateObjectify(d.created_at);
+  const sold_at = dateObjectify(d.sold_at);
   const price = +(d.price_drops[0] || d.price);
   const amount_dropped = price - d.sold_price;
 
   return {
     ...d,
+    created_at,
+    sold_at,
     price,
     price_drops: d.price_drops.length,
     amount_dropped,
     percent_dropped: amount_dropped / price,
+    days_to_sell: Math.round((sold_at - created_at) / DAY_LENGTH),
   }
 };
 
