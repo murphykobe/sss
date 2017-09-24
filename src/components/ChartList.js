@@ -91,7 +91,7 @@ const addComputedProperties = d => {
     created_at,
     sold_at,
     price,
-    price_drops: d.price_drops.length,
+    price_drops: d.price_drops.length ? d.price_drops.length - 1 : 0,
     amount_dropped,
     percent_dropped: amount_dropped / price,
     days_to_sell: Math.round((sold_at - created_at) / DAY_LENGTH),
