@@ -11,6 +11,7 @@ const noClearProps = {
   backspaceRemoves: false,
   clearable: false,
   deleteRemoves: false,
+  searchable: false,
 };
 
 const Select = ({ noClear, ...props }) => (
