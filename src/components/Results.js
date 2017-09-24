@@ -57,6 +57,10 @@ class Results extends Component {
     }
   }
 
+  toggleSummary = () => this.setState({ showSummary: !this.state.showSummary });
+
+  toggleResults = () => this.setState({ showResults: !this.state.showResults });
+
   renderSummary() {
     const { showSummary } = this.state;
 
@@ -64,7 +68,7 @@ class Results extends Component {
       <div className="Results-section">
         <div>
           <label
-            onClick={() => this.setState({ showSummary: !showSummary })}
+            onClick={this.toggleSummary}
           >
             {'Summary '}
             <i className={`fa ${showSummary ? 'fa-chevron-down' : 'fa-chevron-right' }`}/>
@@ -135,7 +139,11 @@ class Results extends Component {
     return (
       <div className="Results">
         {this.renderSummary()}
-        <ResultList results={results} showResults={showResults}/>
+        <ResultList
+          results={results}
+          showResults={showResults}
+          toggleResults={this.toggleResults}
+        />
       </div>
     );
   }

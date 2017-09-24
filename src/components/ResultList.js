@@ -10,6 +10,7 @@ class Results extends PureComponent {
   static propTypes = {
     results: P.arrayOf(P.shape(ResultShape)),
     showResults: P.bool,
+    toggleResults: P.func,
   };
 
   renderResultItems() {
@@ -23,13 +24,13 @@ class Results extends PureComponent {
   }
 
   render() {
-    const { showResults } = this.props;
+    const { showResults, toggleResults } = this.props;
 
     return (
       <div className="ResultList">
         <div>
           <label
-            onClick={() => this.setState({ showResults: !showResults })}
+            onClick={toggleResults}
           >
             {'Results '}
             <i className={`fa ${showResults ? 'fa-chevron-down' : 'fa-chevron-right' }`}/>
