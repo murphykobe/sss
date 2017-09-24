@@ -4,7 +4,7 @@ import Info from './Info';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, datify } from '../utils';
-import { ROOT } from '../secrets';
+import { ROOT } from '../secrets/constants';
 
 import './Result.css';
 

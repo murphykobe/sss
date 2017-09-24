@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # secrets
-secrets.js
+/src/secrets
 
 # dependencies
 /node_modules

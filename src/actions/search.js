@@ -1,6 +1,6 @@
 import qs from 'qs';
 
-import { SEARCH, QUERY, getRoute, getFilters } from '../secrets';
+import { SEARCH, QUERY, getRoute, getFilters } from '../secrets/constants';
 
 const headers = new Headers({
   'Content-Type': 'application/x-www-form-urlencoded',
