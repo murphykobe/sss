@@ -1,5 +1,4 @@
 .Result {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,4 +6,5 @@
 
 .Result + .Result {
   border-top: 1px solid gray;
+  margin-top: 10px;
 }
