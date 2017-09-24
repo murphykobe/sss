@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import P from 'prop-types';
 import { Placeholder } from './layout';
 
+import ChartList from './ChartList';
 import ResultList from './ResultList';
 import SummaryList from './SummaryList';
 
@@ -34,6 +35,7 @@ class Results extends Component {
     return (
       <div className="Results">
         <SummaryList results={results} soldSearch={soldSearch}/>
+        <ChartList results={results} soldSearch={soldSearch}/>
         <ResultList results={results}/>
       </div>
     );
