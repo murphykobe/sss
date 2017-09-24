@@ -21,7 +21,7 @@ class Result extends Component {
 
   render() {
     const {
-      buyer_id,
+      // buyer_id,
       created_at,
       designer,
       followerno,
@@ -59,7 +59,8 @@ class Result extends Component {
           <Info
             label="Sold At"
             body={datify(sold_at)}
-            href={buyer_id ? `${ROOT}users/myitems/${buyer_id}` : null}
+            // href={buyer_id ? `${ROOT}users/myitems/${buyer_id}` : null}
+            // temporarily disabled -- privacy
           />
           <Info
             label="List Price"
