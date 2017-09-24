@@ -58,7 +58,7 @@ class Search extends Component {
   }
 
   get filteredState() {
-    return omitBy(x => x === '')(this.state);
+    return omitBy(x => x === '' || x == null)(this.state);
   }
 
   get hasBuyerId() {
