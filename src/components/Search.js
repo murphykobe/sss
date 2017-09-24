@@ -108,7 +108,7 @@ class Search extends Component {
             onChange={e => this.setState({ sold: e.target.value !== '', buyer_id: e.target.value })}
           />
         </Control>
-        <Control label="Designer ID">
+        <Control label="Designer">
           <Select
             options={options}
             filterOptions={filterOptions}
