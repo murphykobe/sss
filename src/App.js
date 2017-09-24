@@ -16,18 +16,19 @@ class App extends Component {
   state = {
     loading: false,
     results: undefined,
+    soldSearch: false,
   };
 
   handleSearchStart() {
     this.setState({ loading: true });
   }
 
-  handleSearchEnd(results) {
-    this.setState({ loading: false, results });
+  handleSearchEnd({ results, sold }) {
+    this.setState({ loading: false, results, soldSearch: sold });
   }
 
   render() {
-    const { loading, results } = this.state;
+    const { loading, results, soldSearch } = this.state;
 
     return (
       <div className="App">
@@ -42,7 +43,10 @@ class App extends Component {
             />
           </div>
           <div className="App-col flex-3">
-            <Results loading={loading} results={results}/>
+            <Results
+              loading={loading}
+              results={results}
+              soldSearch={soldSearch}/>
           </div>
         </div>
       </div>

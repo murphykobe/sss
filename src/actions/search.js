@@ -14,7 +14,7 @@ export const fetchSearch = ({ sold, ...filters }, page = 0, currentResults = [])
     body: JSON.stringify({
       params: qs.stringify({
         query: '',
-        hitsPerPage: 100,
+        hitsPerPage: 1000,
         page,
       }).concat(`&filters=${getFilters(filters)}`)
     })
@@ -23,8 +23,9 @@ export const fetchSearch = ({ sold, ...filters }, page = 0, currentResults = [])
   return fetch(url, options).then(resp => resp.json()).then(({ hits }) => {
     const totalResults = currentResults.concat(hits);
 
-    return hits.length < 100
-      ? totalResults
+    // Throttle at 5 pages to avoid accidental DDOS
+    return (hits.length < 100 || page === 5)
+      ? { results: totalResults, sold }
       : fetchSearch({ sold, ...filters}, page + 1, totalResults);
   });
 };
