@@ -13,13 +13,7 @@ import './Search.css';
 const help = (
   <div className="Search-help">
     <div>
-      {'Search by any combination of seller, buyer, or designer.'}
-    </div>
-    <div>
-      {'If a sold listing has buyer info, it will be linked in the \'Sold At\' section.'}
-    </div>
-    <div>
-      {'Not all listings have buyer info.'}
+      {'Search by seller and/or designer.'}
     </div>
     <div>
       {'There is no way to filter out refunded items, so results may be slightly inaccurate.'}
@@ -88,7 +82,7 @@ class Search extends Component {
             onChange={e => this.setState({ 'user.id': e.target.value })}
           />
         </Control>
-        <Control label="Buyer ID">
+        <Control label="Buyer ID" hidden>
           <input
             type="number"
             value={this.state.buyer_id}
