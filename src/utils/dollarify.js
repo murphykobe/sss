@@ -1,3 +1,3 @@
-const dollarify = price => `$${price.toFixed(2)}`
+const dollarify = (price = 0) => `$${price.toFixed(2)}`
 
 export default dollarify;
