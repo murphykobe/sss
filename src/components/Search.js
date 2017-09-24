@@ -18,6 +18,9 @@ const Help = (
     <div>
       {'Not all listings have buyer info.'}
     </div>
+    <div>
+      {'There is no way to filter out refunded items, so results may be slightly inaccurate.'}
+    </div>
   </div>
 );
 
