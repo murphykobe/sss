@@ -14,7 +14,7 @@ import { Row, ToggleContainer } from './layout';
 import { Control, Select } from './form';
 
 import ResultShape from '../propTypes/result';
-import { dateObjectify, datify, dollarify } from '../utils';
+import { dateObjectify, datify, dollarify, percentify } from '../utils';
 import designers, { filterOptions } from '../secrets/designers';
 
 import './ChartList.css';
@@ -24,7 +24,7 @@ const accessors = {
     scale: 'time',
     tickFormat: datify,
     label: 'Created At',
-    parse: ({ created_at })  => dateObjectify(created_at),
+    parse: ({ created_at }) => dateObjectify(created_at),
   },
   followerno: {
     scale: 'linear',
@@ -38,11 +38,17 @@ const accessors = {
     label: 'Start Price',
     parse: 'price',
   },
+  price_drops: {
+    scale: 'linear',
+    tickFormat: x => x,
+    label: 'Number of Drops',
+    parse: 'price_drops',
+  },
   sold_at: {
     scale: 'time',
     tickFormat: datify,
     label: 'Sold At',
-    parse: ({ sold_at })  => dateObjectify(sold_at),
+    parse: ({ sold_at }) => dateObjectify(sold_at),
   },
   sold_price: {
     scale: 'linear',
@@ -50,9 +56,34 @@ const accessors = {
     label: 'Sold Price',
     parse: 'sold_price',
   },
+  amount_dropped: {
+    scale: 'linear',
+    tickFormat: dollarify,
+    label: 'Amount Dropped',
+    parse: 'amount_dropped',
+  },
+  percent_dropped: {
+    scale: 'linear',
+    tickFormat: percentify,
+    label: 'Percent Dropped',
+    parse: 'percent_dropped',
+  },
 }
 
 const accessorOptions = map(accessors, (v, k) => ({ label: v.label, value: k }));
+
+const addComputedProperties = d => {
+  const price = +(d.price_drops[0] || d.price);
+  const amount_dropped = price - d.sold_price;
+
+  return {
+    ...d,
+    price,
+    price_drops: d.price_drops.length,
+    amount_dropped,
+    percent_dropped: amount_dropped / price,
+  }
+};
 
 class ChartList extends PureComponent {
   static propTypes = {
@@ -78,7 +109,7 @@ class ChartList extends PureComponent {
 
     return soldSearch
       ? accessorOptions
-      : accessorOptions.slice(0, 3);
+      : accessorOptions.slice(0, 4);
   }
 
   get data() {
@@ -90,7 +121,8 @@ class ChartList extends PureComponent {
       : results
 
     return filteredResults
-      .filter(datum => datum[y])
+      .map(addComputedProperties)
+      .filter(datum => datum[y] != null)
       .sort((a, b) => a[x] - b[x])
   }
 
