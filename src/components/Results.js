@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import P from 'prop-types';
 import { sum, mean } from 'lodash/fp';
 
-import Loading from './Loading';
+import Placeholder from './Placeholder';
 import Info from './Info';
 import Result from './Result';
 
@@ -143,7 +143,7 @@ class Results extends Component {
     const { loading, results } = this.props;
 
     if (loading) {
-      return <Loading/>;
+      return <Placeholder message="Loading..."/>;
     }
 
     if (!results) {
@@ -151,7 +151,7 @@ class Results extends Component {
     }
 
     if (!results.length) {
-      return 'No results found. Try another search.'
+      return <Placeholder message="No results found. Try another search."/>
     }
 
     return (
