@@ -5,6 +5,7 @@ import { map, sum, mean } from 'lodash/fp';
 import Info from './Info';
 import Placeholder from './Placeholder';
 import ResultList from './ResultList';
+import Row from './Row';
 import ToggleContainer from './ToggleContainer';
 
 import ResultShape from '../propTypes/result';
@@ -58,33 +59,37 @@ class Results extends Component {
 
     return (
       <div>
-        <Info
-          label="Number of Results"
-          body={results.length}
-        />
-        <Info
-          label="Total List Price"
-          body={dollarify(this.totalListPrice)}
-        />
-        <Info
-          label="Total Sold Price"
-          body={dollarify(this.totalSoldPrice)}
-          hidden={!this.totalSoldPrice}
-        />
-        <Info
-          label="Average List Price"
-          body={dollarify(this.avgListPrice)}
-        />
-        <Info
-          label="Average Sold Price"
-          body={dollarify(this.avgSoldPrice)}
-          hidden={!this.totalSoldPrice}
-        />
-        <Info
-          label="Average Drop Amount"
-          body={percentify(this.avgDrop)}
-          hidden={!this.totalSoldPrice}
-        />
+        <Row>
+          <Info
+            label="Number of Results"
+            body={results.length}
+          />
+          <Info
+            label="Total List Price"
+            body={dollarify(this.totalListPrice)}
+          />
+          <Info
+            label="Average List Price"
+            body={dollarify(this.avgListPrice)}
+          />
+        </Row>
+        <Row>
+          <Info
+            label="Total Sold Price"
+            body={dollarify(this.totalSoldPrice)}
+            hidden={!this.totalSoldPrice}
+          />
+          <Info
+            label="Average Sold Price"
+            body={dollarify(this.avgSoldPrice)}
+            hidden={!this.totalSoldPrice}
+          />
+          <Info
+            label="Average Drop Amount"
+            body={percentify(this.avgDrop)}
+            hidden={!this.totalSoldPrice}
+          />
+        </Row>
       </div>
     );
   }

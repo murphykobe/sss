@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Info from './Info';
+import Row from './Row';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, datify } from '../utils';
@@ -43,7 +44,7 @@ class Result extends Component {
           label={user.username}
           href={`${ROOT}${user.username}`}
         />
-        <div className="Result-body">
+        <Row>
           <Info
             label="Size"
             body={size.toUpperCase()}
@@ -70,7 +71,7 @@ class Result extends Component {
             body={dollarify(sold_price)}
             hidden={!sold_price}
           />
-        </div>
+        </Row>
       </div>
     );
   }
