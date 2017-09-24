@@ -15,5 +15,6 @@ Super Simple Search
 ## Planned Features
 
 * Replace 'Result' section with sortable grid
-* Upgrade styling
-* Add histogram support
+* Add histogram support to chart
+* Add pan / zoom support to chart
+* Improve line chart hover target size
