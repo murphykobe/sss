@@ -5,7 +5,7 @@ import './Placeholder.css';
 
 const Placeholder = ({ message }) => (
   <div className="Placeholder">
-    <label>{message}</label>
+    <h3>{message}</h3>
   </div>
 );
 

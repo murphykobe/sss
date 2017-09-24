@@ -59,6 +59,7 @@ class Result extends Component {
           <Info
             label="Sold At"
             body={datify(sold_at)}
+            hidden={!sold_price}
             // href={buyer_id ? `${ROOT}users/myitems/${buyer_id}` : null}
             // temporarily disabled -- privacy
           />

@@ -1,7 +1,49 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-size: 14px;
+  font-family: Avenir Next, futura, Helvetica, sans-serif;
+  background: #fbfbfb;
+}
+
+a, label {
+  font-weight: 600;
+}
+
+a {
+  transition-duration: .25s;
+}
+
+a:hover {
+  opacity: .5;
+}
+
+.fa {
+  height: 1rem;
+  width: 1rem;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+h2, h3 {
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+h2 {
+  font-size: 24px;
+  letter-spacing: 4px;
+}
+
+h3 {
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 
 [class*="flex-"] {

@@ -58,39 +58,43 @@ class Search extends Component {
   render() {
     return (
       <form className="Search">
-        <Control label="Search Sold Listings" id="sold">
-          <input
-            id="sold"
-            name="sold"
-            type="checkbox"
-            disabled={this.hasBuyerId}
-            checked={this.state.sold}
-            onChange={e => this.setState({ sold: e.target.checked })}
-          />
-        </Control>
-        <Control label="Seller ID">
-          <input
-            type="number"
-            value={this.state['user.id']}
-            onChange={e => this.setState({ 'user.id': e.target.value })}
-          />
-        </Control>
-        <Control label="Buyer ID" hidden>
-          <input
-            type="number"
-            value={this.state.buyer_id}
-            onChange={e => this.setState({ sold: e.target.value !== '', buyer_id: e.target.value })}
-          />
-        </Control>
-        <Control label="Designer">
-          <Select
-            options={options}
-            filterOptions={filterOptions}
-            value={this.state['designers.id']}
-            onChange={value => this.setState({ 'designers.id': value ? value.value : undefined })}
-          />
-        </Control>
-        <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
+        <ToggleContainer label="Search" showOnMount>
+          <Control label="Search Sold Listings" id="sold">
+            <input
+              id="sold"
+              name="sold"
+              type="checkbox"
+              disabled={this.hasBuyerId}
+              checked={this.state.sold}
+              onChange={e => this.setState({ sold: e.target.checked })}
+            />
+          </Control>
+          <Control label="Seller ID">
+            <input
+              type="number"
+              value={this.state['user.id']}
+              onChange={e => this.setState({ 'user.id': e.target.value })}
+            />
+          </Control>
+          <Control label="Buyer ID" hidden>
+            <input
+              type="number"
+              value={this.state.buyer_id}
+              onChange={e => this.setState({ sold: e.target.value !== '', buyer_id: e.target.value })}
+            />
+          </Control>
+          <Control label="Designer">
+            <Select
+              options={options}
+              filterOptions={filterOptions}
+              value={this.state['designers.id']}
+              onChange={value => this.setState({ 'designers.id': value ? value.value : undefined })}
+            />
+          </Control>
+          <Control label="">
+            <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
+          </Control>
+        </ToggleContainer>
         <ToggleContainer label="Help">
           <TextArray text={help}/>
         </ToggleContainer>

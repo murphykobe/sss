@@ -131,7 +131,7 @@ class ChartList extends PureComponent {
         theme={VictoryTheme.material}
         height={300}
         width={800}
-        padding={{ left: 80, bottom: 45, top: 10, right: 10 }}
+        padding={{ left: 85, bottom: 45, top: 10, right: 10 }}
         events={[{
           target: 'parent',
           eventHandlers: {
@@ -151,7 +151,7 @@ class ChartList extends PureComponent {
           tickFormat={accessors[y].tickFormat}
           label={accessors[y].label}
           style={{
-            axisLabel: { fontWeight: 700, padding: 60 },
+            axisLabel: { fontWeight: 700, padding: 70 },
           }}
         />
         <VictoryLine

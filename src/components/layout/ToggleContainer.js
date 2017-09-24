@@ -24,10 +24,10 @@ class ToggleContainer extends PureComponent {
 
     return (
       <div className="ToggleContainer">
-        <label className="ToggleContainer-label" onClick={this.toggle}>
+        <h3 className="ToggleContainer-label" onClick={this.toggle}>
           <span>{label}</span>
           <i className={`fa ${show ? 'fa-chevron-down' : 'fa-chevron-right' }`}/>
-        </label>
+        </h3>
         {show ? children : null}
       </div>
     );
