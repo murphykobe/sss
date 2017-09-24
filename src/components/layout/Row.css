@@ -1,6 +1,5 @@
 .Row {
   display: flex;
-  width: 100%;
 }
 
 .Row > * {

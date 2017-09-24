@@ -20,6 +20,14 @@ body {
   flex-grow: 3;
 }
 
+.full-width {
+  width: 100% !important;
+}
+
+.half-width {
+  width: 50% !important;
+}
+
 @media only screen and (max-width: 768px) {
   [class*="flex-"] {
     flex-grow: 1;
