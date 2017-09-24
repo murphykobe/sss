@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import P from 'prop-types';
-import { map, sum, mean } from 'lodash/fp';
+import { compose, map, sum, mean } from 'lodash/fp';
 
 import { Info, Row, ToggleContainer } from './layout';
 
@@ -8,9 +8,6 @@ import ResultShape from '../propTypes/result';
 import { dollarify, percentify } from '../utils';
 
 import './SummaryList.css';
-
-const calcListPrices = map(({ price, price_drops}) => +(price_drops[0] || price));
-const calcSoldPrices = map(({ sold_price }) => sold_price);
 
 class SummaryList extends PureComponent {
   static propTypes = {
@@ -21,13 +18,15 @@ class SummaryList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.listPrices = 0;
+    this.listPrices = [];
+    this.avgFollowers = 0;
     this.avgListPrice = 0;
     this.totalListPrice = 0;
-    this.soldPrices = 0;
+    this.soldPrices = [];
+    this.avgDaysToSell = 0;
+    this.avgDrop = 0;
     this.avgSoldPrice = 0;
     this.totalSoldPrice = 0;
-    this.avgDrop = 0;
 
     this.calcSummaryStats();
   }
@@ -43,62 +42,61 @@ class SummaryList extends PureComponent {
   calcSummaryStats() {
     const { results, soldSearch } = this.props;
 
-    this.listPrices = calcListPrices(results);
+    this.listPrices = map(({ price }) => price)(results);
+    this.avgFollowers = compose(mean, map(({ followerno }) => followerno))(results);
     this.avgListPrice = mean(this.listPrices);
     this.totalListPrice = sum(this.listPrices);
 
     if (soldSearch) {
-      this.soldPrices = calcSoldPrices(results);
+      this.soldPrices = map(({ sold_price }) => sold_price)(results);
+      this.avgDaysToSell = compose(mean, map(({ days_to_sell }) => days_to_sell))(results);
+      this.avgDrop = compose(mean, map(({ percent_dropped }) => percent_dropped))(results);
       this.avgSoldPrice = mean(this.soldPrices);
       this.totalSoldPrice = sum(this.soldPrices);
-      this.avgDrop = (this.totalListPrice - this.totalSoldPrice) / this.totalListPrice;
     }
   }
 
-  renderSummaryItems() {
-    const { results } = this.props;
+  render() {
+    const { results, soldSearch } = this.props;
 
     return (
-      <div>
+      <ToggleContainer label="Summary">
         <Row>
           <Info
-            label="Number of Results"
+            label="Results"
             body={results.length}
+          />
+          <Info
+            label="Avg. Followers"
+            body={(this.avgFollowers).toFixed(1)}
           />
           <Info
             label="Total List Price"
             body={dollarify(this.totalListPrice)}
           />
           <Info
-            label="Average List Price"
+            label="Avg. List Price"
             body={dollarify(this.avgListPrice)}
           />
         </Row>
-        <Row>
+        <Row hidden={!soldSearch}>
+          <Info
+            label="Avg. Days To Sell"
+            body={(this.avgDaysToSell).toFixed(1)}
+          />
+          <Info
+            label="Avg. Drop Amount"
+            body={percentify(this.avgDrop)}
+          />
           <Info
             label="Total Sold Price"
             body={dollarify(this.totalSoldPrice)}
-            hidden={!this.totalSoldPrice}
           />
           <Info
-            label="Average Sold Price"
+            label="Avg. Sold Price"
             body={dollarify(this.avgSoldPrice)}
-            hidden={!this.totalSoldPrice}
-          />
-          <Info
-            label="Average Drop Amount"
-            body={percentify(this.avgDrop)}
-            hidden={!this.totalSoldPrice}
           />
         </Row>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <ToggleContainer label="Summary">
-        {this.renderSummaryItems()}
       </ToggleContainer>
     );
   }
