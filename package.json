@@ -14,6 +14,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-only": "surge -p ./build -d super-simple-search.surge.sh",
+    "devdeploy-only": "surge -p ./build -d sss-dev.surge.sh",
+    "deploy": "yarn build && yarn deploy-only",
+    "devdeploy": "yarn build && yarn devdeploy-only"
+  },
+  "devDependencies": {
+    "surge": "^0.19.0"
   }
 }
