@@ -1,3 +1,7 @@
+.Search {
+	width: 100%;
+}
+
 .Search > * {
 	margin-bottom: 25px;
 }

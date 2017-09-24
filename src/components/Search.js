@@ -4,12 +4,12 @@ import { omitBy } from 'lodash/fp';
 import Select from './Select';
 
 import * as SearchActions from '../actions/search';
-import Info from './Info';
+import ToggleContainer from './ToggleContainer';
 import options, { filterOptions } from '../secrets/designers';
 
 import './Search.css';
 
-const Help = (
+const help = (
   <div className="Search-help">
     <div>
       {'Search by any combination of seller, buyer, or designer.'}
@@ -22,6 +22,9 @@ const Help = (
     </div>
     <div>
       {'There is no way to filter out refunded items, so results may be slightly inaccurate.'}
+    </div>
+    <div>
+      {'Max search results is 1000.'}
     </div>
   </div>
 );
@@ -80,10 +83,6 @@ class Search extends Component {
   render() {
     return (
       <form className="Search">
-        <Info
-          label="Info"
-          body={Help}
-        />
         <Control label="Search Sold Listings" id="sold">
           <input
             id="sold"
@@ -117,6 +116,9 @@ class Search extends Component {
           />
         </Control>
         <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
+        <ToggleContainer label="Help">
+          {help}
+        </ToggleContainer>
       </form>
     );
   }
