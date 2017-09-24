@@ -6,7 +6,7 @@ import ResultShape from '../propTypes/result';
 
 import './ResultList.css';
 
-class Results extends PureComponent {
+class ResultList extends PureComponent {
   static propTypes = {
     results: P.arrayOf(P.shape(ResultShape)),
     showResults: P.bool,
@@ -42,4 +42,4 @@ class Results extends PureComponent {
   }
 }
 
-export default Results;
+export default ResultList;
