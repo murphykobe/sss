@@ -3,26 +3,19 @@ import P from 'prop-types';
 import { omitBy } from 'lodash/fp';
 
 import { Control, Select } from './form';
-import { ToggleContainer } from './layout';
+import { TextArray, ToggleContainer } from './layout';
 
 import * as SearchActions from '../actions/search';
 import options, { filterOptions } from '../secrets/designers';
 
 import './Search.css';
 
-const help = (
-  <div className="Search-help">
-    <div>
-      {'Search by seller and/or designer.'}
-    </div>
-    <div>
-      {'There is no way to filter out refunded items, so results may be slightly inaccurate.'}
-    </div>
-    <div>
-      {'Max search results is 1000.'}
-    </div>
-  </div>
-);
+const help = [
+  'Search by seller and/or designer.',
+  'There is no way to filter out refunded items, so results may be slightly inaccurate.',
+  'Up to 1000 results are searchable for any query.',
+  <a key="link" href="https://www.github.com/timhwang21/sss/issues">Found a problem? File an issue on Github.</a>,
+];
 
 class Search extends Component {
   static propTypes = {
@@ -99,7 +92,7 @@ class Search extends Component {
         </Control>
         <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
         <ToggleContainer label="Help">
-          {help}
+          <TextArray text={help}/>
         </ToggleContainer>
       </form>
     );

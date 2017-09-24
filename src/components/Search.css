@@ -5,7 +5,3 @@
 .Search > * {
 	margin-bottom: 25px;
 }
-
-.Search-help > div:not(:last-child) {
-	margin-bottom: 10px;
-}
