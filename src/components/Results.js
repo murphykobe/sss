@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import P from 'prop-types';
 import { map, sum, mean } from 'lodash/fp';
 
-import Placeholder from './Placeholder';
 import Info from './Info';
+import Placeholder from './Placeholder';
 import ResultList from './ResultList';
+import ToggleContainer from './ToggleContainer';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, percentify } from '../utils';
@@ -23,11 +24,6 @@ class Results extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      showSummary: false,
-      showResults: true,
-    };
 
     this.listPrices = 0;
     this.avgListPrice = 0;
@@ -57,35 +53,8 @@ class Results extends Component {
     }
   }
 
-  toggleSummary = () => this.setState({ showSummary: !this.state.showSummary });
-
-  toggleResults = () => this.setState({ showResults: !this.state.showResults });
-
-  renderSummary() {
-    const { showSummary } = this.state;
-
-    return (
-      <div className="Results-section">
-        <div>
-          <label
-            onClick={this.toggleSummary}
-          >
-            {'Summary '}
-            <i className={`fa ${showSummary ? 'fa-chevron-down' : 'fa-chevron-right' }`}/>
-          </label>
-        </div>
-        {this.renderSummaryItems()}
-      </div>
-    );
-  }
-
   renderSummaryItems() {
     const { results } = this.props;
-    const { showSummary } = this.state;
-
-    if (!showSummary) {
-      return null;
-    }
 
     return (
       <div>
@@ -122,7 +91,6 @@ class Results extends Component {
 
   render() {
     const { loading, results } = this.props;
-    const { showResults } = this.state;
 
     if (loading) {
       return <Placeholder message="Loading..."/>;
@@ -138,12 +106,10 @@ class Results extends Component {
 
     return (
       <div className="Results">
-        {this.renderSummary()}
-        <ResultList
-          results={results}
-          showResults={showResults}
-          toggleResults={this.toggleResults}
-        />
+        <ToggleContainer label="Summary">
+          {this.renderSummaryItems()}
+        </ToggleContainer>
+        <ResultList results={results}/>
       </div>
     );
   }

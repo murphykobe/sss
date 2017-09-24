@@ -1,0 +1,7 @@
+.ToggleContainer {
+	margin-bottom: 10px;
+}
+
+.ToggleContainer-label > span {
+	margin-right: 5px;
+}
