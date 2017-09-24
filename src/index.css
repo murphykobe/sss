@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+[class*="flex-"] {
+  flex-basis: 0;
+}
+
 .flex-1 {
   flex-grow: 1;
 }
@@ -14,4 +18,19 @@ body {
 
 .flex-3 {
   flex-grow: 3;
+}
+
+@media only screen and (max-width: 768px) {
+  [class*="flex-"] {
+    flex-grow: 1;
+    flex-basis: initial;
+  }
+
+  .mobile-row {
+    flex-direction: row;
+  }
+
+  .mobile-col {
+    flex-direction: column;
+  }
 }

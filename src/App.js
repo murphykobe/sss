@@ -35,7 +35,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Super Simple Search</h2>
         </div>
-        <div className="App-body">
+        <div className="App-body mobile-col">
           <div className="App-col flex-1">
             <Search
               onSearchStart={this.handleSearchStart}
