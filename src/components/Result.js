@@ -4,7 +4,7 @@ import { Info, Row } from './layout';
 
 import ResultShape from '../propTypes/result';
 import { dollarify, datify } from '../utils';
-import { ROOT } from '../secrets/constants';
+import { ROOT, getImg } from '../secrets/constants';
 
 import './Result.css';
 
@@ -15,7 +15,7 @@ class Result extends Component {
 
   render() {
     const {
-
+      cover_photo,
       created_at,
       designer,
       followerno,
@@ -34,6 +34,7 @@ class Result extends Component {
           label={`${designer.name} ${title}`}
           href={`${ROOT}listings/${id}`}
         />
+        <img src={getImg(cover_photo.url)}/>
         <Info
           label={user.username}
           href={`${ROOT}${user.username}`}
