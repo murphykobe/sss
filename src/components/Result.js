@@ -34,7 +34,10 @@ class Result extends Component {
           label={`${designer.name} ${title}`}
           href={`${ROOT}listings/${id}`}
         />
-        <img src={getImg(cover_photo.url)}/>
+        <img
+          src={getImg(cover_photo.url)}
+          alt="Thumbnail"
+        />
         <Info
           label={user.username}
           href={`${ROOT}${user.username}`}
