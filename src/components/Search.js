@@ -29,6 +29,7 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       sold: false,
+      query: '',
       'user.id': '',
       'designers.id': undefined,
     }
@@ -61,6 +62,12 @@ class Search extends Component {
               type="checkbox"
               checked={this.state.sold}
               onChange={e => this.setState({ sold: e.target.checked })}
+            />
+          </Control>
+          <Control label="Search Query">
+            <input
+              value={this.state.query}
+              onChange={e => this.setState({ 'query': e.target.value })}
             />
           </Control>
           <Control label="Seller ID">

@@ -7,14 +7,14 @@ const headers = new Headers({
   'Content-Type': 'application/x-www-form-urlencoded',
 });
 
-export const fetchSearch = ({ sold, ...filters }, currentResults = []) => {
+export const fetchSearch = ({ sold, query, ...filters }, currentResults = []) => {
   const url = SEARCH + getRoute(sold) + QUERY;
   const options = {
     method: 'POST',
     headers,
     body: JSON.stringify({
       params: qs.stringify({
-        query: '',
+        query,
         hitsPerPage: 1000,
         page: 0,
       }).concat(`&filters=${getFilters(filters)}`)
