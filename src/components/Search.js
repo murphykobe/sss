@@ -30,17 +30,12 @@ class Search extends Component {
     this.state = {
       sold: false,
       'user.id': '',
-      buyer_id: '',
       'designers.id': undefined,
     }
   }
 
   get filteredState() {
     return omitBy(x => x === '' || x == null)(this.state);
-  }
-
-  get hasBuyerId() {
-    return this.state.buyer_id !== '';
   }
 
   get isValid() {
@@ -64,7 +59,6 @@ class Search extends Component {
               id="sold"
               name="sold"
               type="checkbox"
-              disabled={this.hasBuyerId}
               checked={this.state.sold}
               onChange={e => this.setState({ sold: e.target.checked })}
             />
@@ -74,13 +68,6 @@ class Search extends Component {
               type="number"
               value={this.state['user.id']}
               onChange={e => this.setState({ 'user.id': e.target.value })}
-            />
-          </Control>
-          <Control label="Buyer ID" hidden>
-            <input
-              type="number"
-              value={this.state.buyer_id}
-              onChange={e => this.setState({ sold: e.target.value !== '', buyer_id: e.target.value })}
             />
           </Control>
           <Control label="Designer">

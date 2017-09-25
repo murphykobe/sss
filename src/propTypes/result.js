@@ -1,7 +1,6 @@
 import P from 'prop-types';
 
 export default {
-  buyer_id: P.number,
   cover_photo: P.shape({
     url: P.string
   }).isRequired,
