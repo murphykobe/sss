@@ -70,6 +70,15 @@ h3 {
   width: 50% !important;
 }
 
+.no-width {
+  width: 0% !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 @media only screen and (max-width: 768px) {
   [class*="flex-"] {
     flex-grow: 1;

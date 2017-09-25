@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
+import C from 'classnames';
 
 import Search from './components/Search';
 import Results from './components/Results';
 
-import { parseData } from './utils';
-
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSearchStart = this.handleSearchStart.bind(this);
-    this.handleSearchEnd = this.handleSearchEnd.bind(this);
-  }
-
   state = {
     loading: false,
     results: undefined,
     soldSearch: false,
   };
 
-  handleSearchStart() {
-    this.setState({ loading: true });
+  get resultsClassName() {
+    const { loading, results } = this.state;
+
+    return C('App-col', (loading || results) ? 'flex-3' : 'no-width no-margin');
   }
 
-  handleSearchEnd({ results, sold }) {
-    this.setState({ loading: false, results: parseData(results), soldSearch: sold });
-  }
+  handleSearchStart = () => this.setState({ loading: true });
+
+  handleSearchEnd = ({ results, sold: soldSearch }) => this.setState({
+    loading: false,
+    results,
+    soldSearch,
+  });
 
   render() {
     const { loading, results, soldSearch } = this.state;
@@ -44,7 +42,7 @@ class App extends Component {
               onSearchEnd={this.handleSearchEnd}
             />
           </div>
-          <div className="App-col flex-3">
+          <div className={this.resultsClassName}>
             <Results
               loading={loading}
               results={results}
