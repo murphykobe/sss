@@ -23,3 +23,13 @@
   align-items: center;
   padding: 25px 50px 0 50px;
 }
+
+@media only screen and (max-width: 768px) {
+  .App-col {
+    padding: 25px 0 0 0;
+  }
+
+  .App-col + .App-col {
+    padding: 0;
+  }
+}
