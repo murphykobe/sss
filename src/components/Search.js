@@ -11,7 +11,7 @@ import options, { filterOptions } from '../secrets/designers';
 import './Search.css';
 
 const help = [
-  'Search by seller and/or designer.',
+  'Search by seller and/or designer, or search without parameters to see all recently sold items.',
   'There is no way to filter out refunded items, so results may be slightly inaccurate.',
   'Up to 1000 results are searchable for any query.',
   <a key="link" href="https://www.github.com/timhwang21/sss/issues">Found a problem? File an issue on Github.</a>,
@@ -79,7 +79,7 @@ class Search extends Component {
             />
           </Control>
           <Control label="">
-            <button type="button" disabled={this.isValid} onClick={this.handleSubmit}>Submit</button>
+            <button type="button" onClick={this.handleSubmit}>Search</button>
           </Control>
         </ToggleContainer>
         <ToggleContainer label="Help">
