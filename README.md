@@ -18,3 +18,4 @@ Super Simple Search
 * Add histogram support to chart
 * Add pan / zoom support to chart
 * Improve line chart hover target size
+* Store search results in querystring for bookmarkability
