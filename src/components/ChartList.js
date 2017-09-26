@@ -5,8 +5,9 @@ import {
   VictoryChart,
   VictoryLine,
   VictoryTheme,
-  VictoryVoronoiContainer,
+  createContainer,
 } from 'victory';
+import { compose, get, minBy, maxBy } from 'lodash/fp';
 import { map } from 'lodash';
 
 import Result from './Result';
@@ -19,64 +20,59 @@ import designers, { filterOptions } from '../secrets/designers';
 
 import './ChartList.css';
 
+const ChartContainer = createContainer('zoom', 'voronoi');
+
 const accessors = {
   created_at: {
     scale: 'time',
     tickFormat: datify,
     label: 'Created At',
-    parse: 'created_at',
   },
   followerno: {
     scale: 'linear',
     tickFormat: x => x,
     label: 'Followers',
-    parse: 'followerno',
   },
   price: {
     scale: 'linear',
     tickFormat: dollarify,
     label: 'Start Price',
-    parse: 'price',
   },
   price_drops: {
     scale: 'linear',
     tickFormat: x => x,
     label: 'Number of Drops',
-    parse: 'price_drops',
   },
   sold_at: {
     scale: 'time',
     tickFormat: datify,
     label: 'Sold At',
-    parse: 'sold_at',
   },
   sold_price: {
     scale: 'linear',
     tickFormat: dollarify,
     label: 'Sold Price',
-    parse: 'sold_price',
   },
   amount_dropped: {
     scale: 'linear',
     tickFormat: dollarify,
     label: 'Amount Dropped',
-    parse: 'amount_dropped',
   },
   percent_dropped: {
     scale: 'linear',
     tickFormat: percentify,
     label: 'Percent Dropped',
-    parse: 'percent_dropped',
   },
   days_to_sell: {
     scale: 'linear',
     tickFormat: x => x,
     label: 'Days to Sell',
-    parse: 'days_to_sell',
   },
 }
 
 const accessorOptions = map(accessors, (v, k) => ({ label: v.label, value: k }));
+
+const windowSizeOptions = [50, 100, 500, 1000].map(size => ({ label: size, value: size }));
 
 class ChartList extends PureComponent {
   static propTypes = {
@@ -94,6 +90,7 @@ class ChartList extends PureComponent {
       y: soldSearch ? 'sold_price' : 'price',
       active: undefined,
       filteredDesigner: undefined,
+      windowSize: 50,
     }
   }
 
@@ -118,7 +115,42 @@ class ChartList extends PureComponent {
       .sort((a, b) => a[x] - b[x])
   }
 
-  handleMouseOver = (e, { activePoints }) =>
+  get domainX() {
+    const { results } = this.props;
+    const { x, windowSize } = this.state;
+
+    // TODO: Refactor this to use a constant amount; easier to calculate and more predictable
+
+    if (results.length <= windowSize) {
+      return;
+    }
+
+    const endIdx = results.length - 1;
+    const startIdx = results.length - 1 - windowSize;
+
+    return accessors[x].scale === 'time'
+      ? [results[endIdx][x], results[startIdx][x]]
+      : [results[startIdx][x], results[endIdx][x]];
+  }
+
+  get domainY() {
+    const { results } = this.props;
+    const { y } = this.state;
+
+    const lowerBound = compose(
+      get(y),
+      minBy(y),
+    )(results);
+
+    const upperBound = compose(
+      get(y),
+      maxBy(y),
+    )(results);
+
+    return [lowerBound, upperBound];
+  }
+
+  handleMouseOver = activePoints =>
     activePoints && activePoints.length && this.setState({ active: activePoints[0] });
 
   renderChartItems() {
@@ -126,18 +158,19 @@ class ChartList extends PureComponent {
 
     return (
       <VictoryChart
-        containerComponent={<VictoryVoronoiContainer/>}
+        containerComponent={
+          <ChartContainer
+            allowZoom={false}
+            zoomDomain={{ x: this.domainX, y: this.domainY }}
+            radius={25}
+            onActivated={this.handleMouseOver}
+          />
+        }
         scale={{ x: accessors[x].scale, y: accessors[y].scale }}
         theme={VictoryTheme.material}
         height={300}
         width={800}
         padding={{ left: 85, bottom: 45, top: 10, right: 10 }}
-        events={[{
-          target: 'parent',
-          eventHandlers: {
-            onMouseOver: this.handleMouseOver
-          }
-        }]}
       >
         <VictoryAxis
           tickFormat={accessors[x].tickFormat}
@@ -155,12 +188,10 @@ class ChartList extends PureComponent {
           }}
         />
         <VictoryLine
-          animate={{
-            duration: 500,
-          }}
+          animate={{ duration: 1000 }}
           data={this.data}
-          x={accessors[x].parse}
-          y={accessors[y].parse}
+          x={x}
+          y={y}
         />
       </VictoryChart>
     );
@@ -175,7 +206,7 @@ class ChartList extends PureComponent {
   }
 
   render() {
-    const { x, y, filteredDesigner } = this.state;
+    const { x, y, filteredDesigner, windowSize } = this.state;
 
     return (
       <ToggleContainer label="Analyze">
@@ -202,6 +233,14 @@ class ChartList extends PureComponent {
               filterOptions={filterOptions}
               value={filteredDesigner}
               onChange={filteredDesigner => this.setState({ filteredDesigner })}
+            />
+          </Control>
+          <Control label="Window Size">
+            <Select
+              options={windowSizeOptions}
+              value={windowSize}
+              onChange={({ value }) => this.setState({ windowSize: value })}
+              noClear
             />
           </Control>
         </Row>
